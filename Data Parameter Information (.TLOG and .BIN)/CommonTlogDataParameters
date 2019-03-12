@@ -1,1 +1,368 @@
-temp
+Common/Abbreviated Data Parameters:
+
+----------------------------------------------------------
+
+ALTITUDE/LATITUDE/LONGITUDE PARAMETERS:
+
+simstate_t
+    { > Status of simulation environment, if used <
+lat 	 >Latitude in degrees * 1E7  [degE7] <
+lng 	 >Longitude in degrees * 1E7  [degE7] <
+}=====================================
+
+rally_point_t
+    { > A rally point. Used to set a point when from GCS -> MAV. Also used to return a point from MAV -> GCS <
+alt 	 >Transit / loiter altitude in meters relative to home
+lat 	 >Latitude of point in degrees * 1E7  [degE7] <
+lng 	 >Longitude of point in degrees * 1E7  [degE7] <
+}=====================================
+
+ahrs2_t
+    { > Status of secondary AHRS filter if available <
+altitude 	 >Altitude (MSL)  [m] <
+lat 	 >Latitude in degrees * 1E7  [degE7] <
+lng 	 >Longitude in degrees * 1E7  [degE7] <
+}=====================================
+
+ahrs3_t
+    { > Status of third AHRS filter if available. This is for ANU research group (Ali and Sean) <
+altitude 	 >Altitude (MSL)  [m] <
+lat 	 >Latitude in degrees * 1E7  [degE7] <
+lng 	 >Longitude in degrees * 1E7  [degE7] <
+}=====================================
+
+eepstall_t
+    { > Deepstall path planning <
+altitude 	 >Altitude (meters)  [m] <
+}=====================================
+
+attitude_t
+    { > The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right). <
+time_boot_ms 	 >Timestamp (milliseconds since system boot)  [ms] <
+roll 	 >Roll angle (rad, -pi..+pi)  [rad] <
+pitch 	 >Pitch angle (rad, -pi..+pi)  [rad] <
+yaw 	 >Yaw angle (rad, -pi..+pi)  [rad] <
+rollspeed 	 >Roll angular speed (rad/s)  [rad/s] <
+pitchspeed 	 >Pitch angular speed (rad/s)  [rad/s] <
+yawspeed 	 >Yaw angular speed (rad/s)  [rad/s] <
+}=====================================
+
+attitude_quaternion_t
+    { > The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right), expressed as quaternion. Quaternion order is w, x, y, z and a zero rotation would be expressed as (1 0 0 0). <
+time_boot_ms 	 >Timestamp (milliseconds since system boot)  [ms] <
+q1 	 >Quaternion component 1, w (1 in null-rotation)   <
+q2 	 >Quaternion component 2, x (0 in null-rotation)   <
+q3 	 >Quaternion component 3, y (0 in null-rotation)   <
+q4 	 >Quaternion component 4, z (0 in null-rotation)   <
+rollspeed 	 >Roll angular speed (rad/s)  [rad/s] <
+pitchspeed 	 >Pitch angular speed (rad/s)  [rad/s] <
+yawspeed 	 >Yaw angular speed (rad/s)  [rad/s] <
+}=====================================
+
+attitude_quaternion_cov_t
+    { > The attitude in the aeronautical frame (right-handed, Z-down, X-front, Y-right), expressed as quaternion. Quaternion order is w, x, y, z and a zero rotation would be expressed as (1 0 0 0). <
+time_usec 	 >Timestamp (microseconds since system boot or since UNIX epoch)  [us] <
+q 	 >Quaternion components, w, x, y, z (1 0 0 0 is the null-rotation)   <
+rollspeed 	 >Roll angular speed (rad/s)  [rad/s] <
+pitchspeed 	 >Pitch angular speed (rad/s)  [rad/s] <
+yawspeed 	 >Yaw angular speed (rad/s)  [rad/s] <
+covariance 	 >Attitude covariance   <
+}=====================================
+
+set_attitude_target_t
+    { > Sets a desired vehicle attitude. Used by an external controller to command the vehicle (manual controller or other system). <
+time_boot_ms 	 >Timestamp in milliseconds since system boot  [ms] <
+q 	 >Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)   <
+body_roll_rate 	 >Body roll rate in radians per second  [rad/s] <
+body_pitch_rate 	 >Body pitch rate in radians per second  [rad/s] <
+body_yaw_rate 	 >Body yaw rate in radians per second  [rad/s] <
+thrust 	 >Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)   <
+target_system 	 >System ID   <
+target_component 	 >Component ID   <
+type_mask 	 >Mappings: If any of these bits are set, the corresponding input should be ignored: bit 1: body roll rate, bit 2: body pitch rate, bit 3: body yaw rate. bit 4-bit 6: reserved, bit 7: throttle, bit 8: attitude   <
+}=====================================
+
+attitude_target_t
+    { > Reports the current commanded attitude of the vehicle as specified by the autopilot. This should match the commands sent in a SET_ATTITUDE_TARGET message if the vehicle is being controlled this way. <
+time_boot_ms 	 >Timestamp in milliseconds since system boot  [ms] <
+q 	 >Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)   <
+body_roll_rate 	 >Body roll rate in radians per second  [rad/s] <
+body_pitch_rate 	 >Body pitch rate in radians per second  [rad/s] <
+body_yaw_rate 	 >Body yaw rate in radians per second  [rad/s] <
+thrust 	 >Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)   <
+type_mask 	 >Mappings: If any of these bits are set, the corresponding input should be ignored: bit 1: body roll rate, bit 2: body pitch rate, bit 3: body yaw rate. bit 4-bit 7: reserved, bit 8: attitude   bitmask<
+}=====================================
+
+altitude_t
+    { > The current system altitude. <
+time_usec 	 >Timestamp (micros since boot or Unix epoch)  [us] <
+altitude_monotonic 	 >This altitude measure is initialized on system boot and monotonic (it is never reset, but represents the local altitude change). The only guarantee on this field is that it will never be reset and is consistent within a flight. The recommended value for this field is the uncorrected barometric altitude at boot time. This altitude will also drift and vary between flights.  [m] <
+altitude_amsl 	 >This altitude measure is strictly above mean sea level and might be non-monotonic (it might reset on events like GPS lock or when a new QNH value is set). It should be the altitude to which global altitude waypoints are compared to. Note that it is *not* the GPS altitude, however, most GPS modules already output AMSL by default and not the WGS84 altitude.  [m] <
+altitude_local 	 >This is the local altitude in the local coordinate frame. It is not the altitude above home, but in reference to the coordinate origin (0, 0, 0). It is up-positive.  [m] <
+altitude_relative 	 >This is the altitude above the home position. It resets on each change of the current home position.  [m] <
+altitude_terrain 	 >This is the altitude above terrain. It might be fed by a terrain database or an altimeter. Values smaller than -1000 should be interpreted as unknown.  [m] <
+bottom_clearance 	 >This is not the altitude, but the clear space below the system according to the fused clearance estimate. It generally should max out at the maximum range of e.g. the laser altimeter. It is generally a moving target. A negative value indicates no measurement available.  [m] <
+}=====================================
+
+----------------------------------------------------------
+
+AIRSPEED PARAMETERS:
+
+airspeed_autocal_t
+    { > Airspeed auto-calibration <
+vx 	 >GPS velocity north m/s  [m/s] <
+vy 	 >GPS velocity east m/s  [m/s] <
+vz 	 >GPS velocity down m/s  [m/s] <
+diff_pressure 	 >Differential pressure pascals  [Pa] <
+EAS2TAS 	 >Estimated to true airspeed ratio   <
+ratio 	 >Airspeed ratio   <
+state_x 	 >EKF state x   <
+state_y 	 >EKF state y   <
+state_z 	 >EKF state z   <
+Pax 	 >EKF Pax   <
+Pby 	 >EKF Pby   <
+Pcz 	 >EKF Pcz   <
+}=====================================
+
+ekf_status_report_t
+    { > EKF Status message including flags and variances <
+airspeed_variance 	 >Airspeed variance   <
+}=====================================
+
+-----------------------------------------------------------
+
+BATTERY PARAMETERS:
+
+battery2_t
+    { > Deprecated. Use BATTERY_STATUS instead. 2nd Battery status <
+voltage 	 >voltage in millivolts  [mV] <
+current_battery 	 >Battery current, in centiamperes (1 = 10 milliampere), -1: autopilot does not measure the current  [cA] <
+}=====================================
+
+esc_telemetry_1_to_4_t
+    { > ESC Telemetry Data for ESCs 1 to 4, matching data sent by BLHeli ESCs <
+voltage 	 >Voltage  [cV] <
+current 	 >Current  [cA] <
+totalcurrent 	 >Total current  [mAh] <
+}=====================================
+
+esc_telemetry_9_to_12_t
+    { > ESC Telemetry Data for ESCs 9 to 12, matching data sent by BLHeli ESCs <
+voltage 	 >Voltage  [cV] <
+current 	 >Current  [cA] <
+totalcurrent 	 >Total current  [mAh] <
+}=====================================
+
+sys_status_t
+    { > The general system state. If the system is following the MAVLink standard, the system state is mainly defined by three orthogonal states/modes: The system mode, which is either LOCKED (motors shut down and locked), MANUAL (system under RC control), GUIDED (system with autonomous position control, position setpoint controlled manually) or AUTO (system guided by path/waypoint planner). The NAV_MODE defined the current flight state: LIFTOFF (often an open-loop maneuver), LANDING, WAYPOINTS or VECTOR. This represents the internal navigation state machine. The system status shows whether the system is currently active or not and if an emergency occured. During the CRITICAL and EMERGENCY states the MAV is still considered to be active, but should start emergency procedures autonomously. After a failure occured it should first move from active to critical to allow manual intervention and then move to emergency after a certain timeout. <
+voltage_battery 	 >Battery voltage, in millivolts (1 = 1 millivolt)  [mV] <
+current_battery 	 >Battery current, in 10*milliamperes (1 = 10 milliampere), -1: autopilot does not measure the current  [cA] <
+battery_remaining 	 >Remaining battery energy: (0%: 0, 100%: 100), -1: autopilot estimate the remaining battery  [%] <
+}=====================================
+
+battery_status_t
+    { > Battery information <
+current_consumed 	 >Consumed charge, in milliampere hours (1 = 1 mAh), -1: autopilot does not provide mAh consumption estimate  [mAh] <
+voltages 	 >Battery voltage of cells, in millivolts (1 = 1 millivolt). Cells above the valid cell count for this battery should have the UINT16_MAX value.  [mV] <
+current_battery 	 >Battery current, in 10*milliamperes (1 = 10 milliampere), -1: autopilot does not measure the current  [cA] <
+type 	 >Type (chemistry) of the battery MAV_BATTERY_TYPE  <
+battery_remaining 	 >Remaining battery energy: (0%: 0, 100%: 100), -1: autopilot does not estimate the remaining battery  [%] <
+time_remaining 	 >Remaining battery time, in seconds (1 = 1s = 0% energy left), 0: autopilot does not provide remaining battery time estimate  [s] <
+charge_state 	 >State for extent of discharge, provided by autopilot for warning or external reactions MAV_BATTERY_CHARGE_STATE  <
+}=====================================
+
+-----------------------------------------------------------
+
+GPS PARAMETERS:
+
+gps_raw_int_t
+    { > The global position, as returned by the Global Positioning System (GPS). This is    
+///                NOT the global position estimate of the system, but rather a RAW sensor value. See message GLOBAL_POSITION for the global position estimate. <
+time_usec 	 >Timestamp (microseconds since UNIX epoch or microseconds since system boot)  [us] <
+lat 	 >Latitude (WGS84, EGM96 ellipsoid), in degrees * 1E7  [degE7] <
+lon 	 >Longitude (WGS84, EGM96 ellipsoid), in degrees * 1E7  [degE7] <
+alt 	 >Altitude (AMSL, NOT WGS84), in meters * 1000 (positive for up). Note that virtually all GPS modules provide the AMSL altitude in addition to the WGS84 altitude.  [mm] <
+eph 	 >GPS HDOP horizontal dilution of position (unitless). If unknown, set to: UINT16_MAX   <
+epv 	 >GPS VDOP vertical dilution of position (unitless). If unknown, set to: UINT16_MAX   <
+vel 	 >GPS ground speed (m/s * 100). If unknown, set to: UINT16_MAX  [cm/s] <
+cog 	 >Course over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: UINT16_MAX  [cdeg] <
+fix_type 	 >See the GPS_FIX_TYPE enum. GPS_FIX_TYPE  <
+satellites_visible 	 >Number of satellites visible. If unknown, set to 255   <
+alt_ellipsoid 	 >Altitude (above WGS84, EGM96 ellipsoid), in meters * 1000 (positive for up).  [mm] <
+h_acc 	 >Position uncertainty in meters * 1000 (positive for up).  [mm] <
+v_acc 	 >Altitude uncertainty in meters * 1000 (positive for up).  [mm] <
+vel_acc 	 >Speed uncertainty in meters * 1000 (positive for up).  [mm] <
+hdg_acc 	 >Heading / track uncertainty in degrees * 1e5.  [degE5] <
+}=====================================
+
+gps_status_t
+    { > The positioning status, as reported by GPS. This message is intended to display status information about each satellite visible to the receiver. See message GLOBAL_POSITION for the global position estimate. This message can contain information for up to 20 satellites. <
+satellites_visible 	 >Number of satellites visible   <
+satellite_prn 	 >Global satellite ID   <
+satellite_used 	 >0: Satellite not used, 1: used for localization   <
+satellite_elevation 	 >Elevation (0: right on top of receiver, 90: on the horizon) of satellite  [deg] <
+satellite_azimuth 	 >Direction of satellite, 0: 0 deg, 255: 360 deg.  [deg] <
+satellite_snr 	 >Signal to noise ratio of satellite  [dB] <
+}=====================================
+
+global_position_int_t
+    { > The filtered global position (e.g. fused GPS and accelerometers). The position is in GPS-frame (right-handed, Z-up). It    
+///               is designed as scaled integer message since the resolution of float is not sufficient. <
+time_boot_ms 	 >Timestamp (milliseconds since system boot)  [ms] <
+lat 	 >Latitude, expressed as degrees * 1E7  [degE7] <
+lon 	 >Longitude, expressed as degrees * 1E7  [degE7] <
+alt 	 >Altitude in meters, expressed as * 1000 (millimeters), AMSL (not WGS84 - note that virtually all GPS modules provide the AMSL as well)  [mm] <
+relative_alt 	 >Altitude above ground in meters, expressed as * 1000 (millimeters)  [mm] <
+vx 	 >Ground X Speed (Latitude, positive north), expressed as m/s * 100  [cm/s] <
+vy 	 >Ground Y Speed (Longitude, positive east), expressed as m/s * 100  [cm/s] <
+vz 	 >Ground Z Speed (Altitude, positive down), expressed as m/s * 100  [cm/s] <
+hdg 	 >Vehicle heading (yaw angle) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: UINT16_MAX  [cdeg] <
+}=====================================
+
+set_gps_global_origin_t
+    { > As local waypoints exist, the global waypoint reference allows to transform between the local coordinate frame and the global (GPS) coordinate frame. This can be necessary when e.g. in- and outdoor settings are connected and the MAV should move from in- to outdoor. <
+latitude 	 >Latitude (WGS84), in degrees * 1E7  [degE7] <
+longitude 	 >Longitude (WGS84), in degrees * 1E7  [degE7] <
+altitude 	 >Altitude (AMSL), in meters * 1000 (positive for up)  [mm] <
+target_system 	 >System ID   <
+time_usec 	 >Timestamp (microseconds since UNIX epoch or microseconds since system boot)  [us] <
+}=====================================
+
+gps_global_origin_t
+    { > Once the MAV sets a new GPS-Local correspondence, this message announces the origin (0,0,0) position <
+latitude 	 >Latitude (WGS84), in degrees * 1E7  [degE7] <
+longitude 	 >Longitude (WGS84), in degrees * 1E7  [degE7] <
+altitude 	 >Altitude (AMSL), in meters * 1000 (positive for up)  [mm] <
+time_usec 	 >Timestamp (microseconds since UNIX epoch or microseconds since system boot)  [us] <
+}=====================================
+
+global_position_int_cov_t
+    { > The filtered global position (e.g. fused GPS and accelerometers). The position is in GPS-frame (right-handed, Z-up). It  is designed as scaled integer message since the resolution of float is not sufficient. NOTE: This message is intended for onboard networks / companion computers and higher-bandwidth links and optimized for accuracy and completeness. Please use the GLOBAL_POSITION_INT message for a minimal subset. <
+time_usec 	 >Timestamp (microseconds since system boot or since UNIX epoch)  [us] <
+lat 	 >Latitude, expressed as degrees * 1E7  [degE7] <
+lon 	 >Longitude, expressed as degrees * 1E7  [degE7] <
+alt 	 >Altitude in meters, expressed as * 1000 (millimeters), above MSL  [mm] <
+relative_alt 	 >Altitude above ground in meters, expressed as * 1000 (millimeters)  [mm] <
+vx 	 >Ground X Speed (Latitude), expressed as m/s  [m/s] <
+vy 	 >Ground Y Speed (Longitude), expressed as m/s  [m/s] <
+vz 	 >Ground Z Speed (Altitude), expressed as m/s  [m/s] <
+covariance 	 >Covariance matrix (first six entries are the first ROW, next six entries are the second row, etc.)   <
+estimator_type 	 >Class id of the estimator this estimate originated from. MAV_ESTIMATOR_TYPE  <
+}=====================================
+
+global_vision_position_estimate_t
+    { >  <
+usec 	 >Timestamp (microseconds, synced to UNIX time or since system boot)  [us] <
+x 	 >Global X position  [m] <
+y 	 >Global Y position  [m] <
+z 	 >Global Z position  [m] <
+roll 	 >Roll angle in rad  [rad] <
+pitch 	 >Pitch angle in rad  [rad] <
+yaw 	 >Yaw angle in rad  [rad] <
+covariance 	 >Pose covariance matrix upper right triangular (first six entries are the first ROW, next five entries are the second ROW, etc.)   <
+}=====================================
+
+hil_gps_t
+    { > The global position, as returned by the Global Positioning System (GPS). This is    
+///                 NOT the global position estimate of the sytem, but rather a RAW sensor value. See message GLOBAL_POSITION for the global position estimate. <
+time_usec 	 >Timestamp (microseconds since UNIX epoch or microseconds since system boot)  [us] <
+lat 	 >Latitude (WGS84), in degrees * 1E7  [degE7] <
+lon 	 >Longitude (WGS84), in degrees * 1E7  [degE7] <
+alt 	 >Altitude (AMSL, not WGS84), in meters * 1000 (positive for up)  [mm] <
+eph 	 >GPS HDOP horizontal dilution of position in cm (m*100). If unknown, set to: 65535   <
+epv 	 >GPS VDOP vertical dilution of position in cm (m*100). If unknown, set to: 65535   <
+vel 	 >GPS ground speed in cm/s. If unknown, set to: 65535  [cm/s] <
+vn 	 >GPS velocity in cm/s in NORTH direction in earth-fixed NED frame  [cm/s] <
+ve 	 >GPS velocity in cm/s in EAST direction in earth-fixed NED frame  [cm/s] <
+vd 	 >GPS velocity in cm/s in DOWN direction in earth-fixed NED frame  [cm/s] <
+cog 	 >Course over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: 65535  [cdeg] <
+fix_type 	 >0-1: no fix, 2: 2D fix, 3: 3D fix. Some applications will not use the value of this field unless it is at least two, so always correctly fill in the fix.   <
+satellites_visible 	 >Number of satellites visible. If unknown, set to 255   <
+}=====================================
+
+gps_inject_data_t
+    { > data for injecting into the onboard GPS (used for DGPS) <
+target_system 	 >System ID   <
+target_component 	 >Component ID   <
+len 	 >data length  [bytes] <
+data 	 >raw data (110 is enough for 12 satellites of RTCMv2)   <
+}=====================================
+
+gps2_raw_t
+    { > Second GPS data. <
+time_usec 	 >Timestamp (microseconds since UNIX epoch or microseconds since system boot)  [us] <
+lat 	 >Latitude (WGS84), in degrees * 1E7  [degE7] <
+lon 	 >Longitude (WGS84), in degrees * 1E7  [degE7] <
+alt 	 >Altitude (AMSL, not WGS84), in meters * 1000 (positive for up)  [mm] <
+dgps_age 	 >Age of DGPS info  [ms] <
+eph 	 >GPS HDOP horizontal dilution of position in cm (m*100). If unknown, set to: UINT16_MAX  [cm] <
+epv 	 >GPS VDOP vertical dilution of position in cm (m*100). If unknown, set to: UINT16_MAX  [cm] <
+vel 	 >GPS ground speed (m/s * 100). If unknown, set to: UINT16_MAX  [cm/s] <
+cog 	 >Course over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: UINT16_MAX  [cdeg] <
+fix_type 	 >See the GPS_FIX_TYPE enum. GPS_FIX_TYPE  <
+satellites_visible 	 >Number of satellites visible. If unknown, set to 255   <
+dgps_numch 	 >Number of DGPS satellites   <
+}=====================================
+
+gps_rtk_t
+    { > RTK GPS data. Gives information on the relative baseline calculation the GPS is reporting <
+time_last_baseline_ms 	 >Time since boot of last baseline message received in ms.  [ms] <
+tow 	 >GPS Time of Week of last baseline  [ms] <
+baseline_a_mm 	 >Current baseline in ECEF x or NED north component in mm.  [mm] <
+baseline_b_mm 	 >Current baseline in ECEF y or NED east component in mm.  [mm] <
+baseline_c_mm 	 >Current baseline in ECEF z or NED down component in mm.  [mm] <
+accuracy 	 >Current estimate of baseline accuracy.   <
+iar_num_hypotheses 	 >Current number of integer ambiguity hypotheses.   <
+wn 	 >GPS Week Number of last baseline   <
+rtk_receiver_id 	 >Identification of connected RTK receiver.   <
+rtk_health 	 >GPS-specific health report for RTK data.   <
+rtk_rate 	 >Rate of baseline messages being received by GPS, in HZ  [Hz] <
+nsats 	 >Current number of sats used for RTK calculation.   <
+baseline_coords_type 	 >Coordinate system of baseline RTK_BASELINE_COORDINATE_SYSTEM  <
+}=====================================
+
+gps2_rtk_t
+    { > RTK GPS data. Gives information on the relative baseline calculation the GPS is reporting <
+time_last_baseline_ms 	 >Time since boot of last baseline message received in ms.  [ms] <
+tow 	 >GPS Time of Week of last baseline  [ms] <
+baseline_a_mm 	 >Current baseline in ECEF x or NED north component in mm.  [mm] <
+baseline_b_mm 	 >Current baseline in ECEF y or NED east component in mm.  [mm] <
+baseline_c_mm 	 >Current baseline in ECEF z or NED down component in mm.  [mm] <
+accuracy 	 >Current estimate of baseline accuracy.   <
+iar_num_hypotheses 	 >Current number of integer ambiguity hypotheses.   <
+wn 	 >GPS Week Number of last baseline   <
+rtk_receiver_id 	 >Identification of connected RTK receiver.   <
+rtk_health 	 >GPS-specific health report for RTK data.   <
+rtk_rate 	 >Rate of baseline messages being received by GPS, in HZ  [Hz] <
+nsats 	 >Current number of sats used for RTK calculation.   <
+baseline_coords_type 	 >Coordinate system of baseline RTK_BASELINE_COORDINATE_SYSTEM  <
+}=====================================
+
+gps_input_t
+    { > GPS sensor input message.  This is a raw sensor value sent by the GPS. This is NOT the global position estimate of the sytem. <
+time_usec 	 >Timestamp (micros since boot or Unix epoch)  [us] <
+time_week_ms 	 >GPS time (milliseconds from start of GPS week)  [ms] <
+lat 	 >Latitude (WGS84), in degrees * 1E7  [degE7] <
+lon 	 >Longitude (WGS84), in degrees * 1E7  [degE7] <
+alt 	 >Altitude (AMSL, not WGS84), in m (positive for up)  [m] <
+hdop 	 >GPS HDOP horizontal dilution of position in m  [m] <
+vdop 	 >GPS VDOP vertical dilution of position in m  [m] <
+vn 	 >GPS velocity in m/s in NORTH direction in earth-fixed NED frame  [m/s] <
+ve 	 >GPS velocity in m/s in EAST direction in earth-fixed NED frame  [m/s] <
+vd 	 >GPS velocity in m/s in DOWN direction in earth-fixed NED frame  [m/s] <
+speed_accuracy 	 >GPS speed accuracy in m/s  [m/s] <
+horiz_accuracy 	 >GPS horizontal accuracy in m  [m] <
+vert_accuracy 	 >GPS vertical accuracy in m  [m] <
+ignore_flags 	 >Flags indicating which fields to ignore (see GPS_INPUT_IGNORE_FLAGS enum).  All other fields must be provided. GPS_INPUT_IGNORE_FLAGS  bitmask<
+time_week 	 >GPS week number   <
+gps_id 	 >ID of the GPS for multiple GPS inputs   <
+fix_type 	 >0-1: no fix, 2: 2D fix, 3: 3D fix. 4: 3D with DGPS. 5: 3D with RTK   <
+satellites_visible 	 >Number of satellites visible.   <
+}=====================================
+
+gps_rtcm_data_t
+    { > RTCM message for injecting into the onboard GPS (used for DGPS) <
+flags 	 >LSB: 1 means message is fragmented, next 2 bits are the fragment ID, the remaining 5 bits are used for the sequence ID. Messages are only to be flushed to the GPS when the entire message has been reconstructed on the autopilot. The fragment ID specifies which order the fragments should be assembled into a buffer, while the sequence ID is used to detect a mismatch between different buffers. The buffer is considered fully reconstructed when either all 4 fragments are present, or all the fragments before the first fragment with a non full payload is received. This management is used to ensure that normal GPS operation doesn't corrupt RTCM data, and to recover from a unreliable transport delivery order.   <
+len 	 >data length  [bytes] <
+data 	 >RTCM message (may be fragmented)   <
+}=====================================
