@@ -1,4 +1,4 @@
-# FlightLogConverter
+# Flight Log Converter
 
 Technical Specs:
 
