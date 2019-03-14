@@ -1,6 +1,6 @@
 # Flight Log Converter
 
-![Schematic of how the Flight Log Converter works](https://imgur.com/gallery/sGWQfm0)
+![Schematic of how the Flight Log Converter works](https://i.imgur.com/t2fOLKN.png)
 
 Technical Specs:
 
