@@ -5,6 +5,9 @@
 ![Schematic of how the Flight Log Converter works](https://i.imgur.com/t2fOLKN.png)
 
 
+DISCLAIMER: The source code is influenced by the Mission Planner application. We do not claim it as purely our idea and do not intend to credit to ourselves only. We modified and input our own ideas, but it does not consist of ONLY our ideas.
+
+
 Technical Specs:
 
 1. Windows OS
