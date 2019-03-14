@@ -1,5 +1,7 @@
 # Flight Log Converter
 
+![alt text](https://imgur.com/a/sGWQfm0)
+
 Technical Specs:
 
 1. Windows OS
