@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,12 @@ using System.Collections;
 
 namespace FlightLogConverter.ViewModels
 {
+    /*
+        DISCLAIMER: The source code is influenced by the Mission Planner application. 
+            We do not claim it as purely our idea and do not intend to credit to ourselves only. 
+            We modified and input our own ideas, but it does not consist of ONLY our ideas.
+    */
+
     public class GlobalAppData : ViewModelBase
     {
         #region Public Global Variables
