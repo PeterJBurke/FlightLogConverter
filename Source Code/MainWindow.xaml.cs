@@ -16,6 +16,14 @@ namespace FlightLogConverter
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
+    /*
+        DISCLAIMER: The source code is influenced by the Mission Planner application. 
+            We do not claim it as purely our idea and do not intend to credit to ourselves only. 
+            We modified and input our own ideas, but it does not consist of ONLY our ideas.
+    */
+    
+    
     public partial class MainWindow : Window
     {
         private GlobalAppData GAP;
