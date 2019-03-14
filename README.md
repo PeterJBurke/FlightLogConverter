@@ -1,6 +1,6 @@
 # Flight Log Converter
 
-Workflow of the Flight Log Converter
+Workflow of the Flight Log Converter:
 
 ![Schematic of how the Flight Log Converter works](https://i.imgur.com/t2fOLKN.png)
 
