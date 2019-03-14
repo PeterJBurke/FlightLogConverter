@@ -1,3 +1,5 @@
+This is a clone of the repo created by my undergraduate senior design team at UC Irvine in 2018-2019 academic year. They did a nice job.
+
 # Flight Log Converter
 
 **_Workflow of the Flight Log Converter:_**
